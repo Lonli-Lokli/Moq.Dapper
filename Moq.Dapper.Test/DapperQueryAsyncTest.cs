@@ -59,6 +59,21 @@ namespace Moq.Dapper.Test
 
             Assert.AreEqual(actual, expected);
         }
+        
+        [Test]
+        public void QuerySingleAsyncGenericWithString()
+        {
+            var connection = new Mock<DbConnection>();
+
+            var expected = "toto";
+
+            connection.SetupDapperAsync(c => c.QuerySingleAsync<string>(It.IsAny<string>(), null, null, null, null))
+                      .ReturnsAsync(expected);
+
+            var actual = connection.Object.QuerySingleAsync<string>("").GetAwaiter().GetResult();
+
+            Assert.AreEqual(actual, expected);
+        }
 
         [Test]
         public void QuerySingleAsyncGenericUsingDbConnectionInterface()
