@@ -8,7 +8,7 @@ namespace Moq.Dapper
     static class ObjectExtensions
     {
          internal static DataTable ToDataTable(this object result, Type resultType) =>
-             result is IEnumerable results ?
+             result is IEnumerable results and not string ?
              results.ToDataTable(resultType.GenericTypeArguments.Single()) :
              new[] { result }.ToDataTable(resultType);
     }
